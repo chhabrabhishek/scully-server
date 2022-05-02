@@ -6,10 +6,11 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/getTransactions")
-def hello_world():
+@app.route("/getTransactions/<username>")
+def hello_world(username):
     data = {
-        'query': 'query { transactions { money reason transactionDate transactionFrom transactionId transactionStatus transactionType transactionWith } }'
+        'query': 'query getTransactions($username: String){ transactions (where: {_or: [{transactionFrom: {_eq: $username}}, {transactionWith: {_eq: $username}}]}) { money reason transactionDate transactionFrom transactionId transactionStatus transactionType transactionWith } }',
+        'variables': { "username": username }
     }
     headers = {
         'content-type': 'application/json',
