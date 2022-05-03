@@ -18,7 +18,7 @@ def get_transactions(username):
     }
     headers = {
         'content-type': 'application/json',
-        'x-hasura-admin-secret': '5llFpm8mZWkMvp620CMzMbyfNKSq2VxV5bXjOOABjOO9IhiCaYKrYeFXeiIMq9ea'
+        'x-hasura-admin-secret': 'YlPkfjIaatJlBBPuo8ri3FgFs9UIg3hr1yNSUJNJXMlf4kx4uX3xItSszgq9EwHH'
     }
     req = requests.post('https://scully.hasura.app/v1/graphql', data=json.dumps(data), headers=headers)
     return req.json()
@@ -31,7 +31,7 @@ def mark_paid(transactionId):
     }
     headers = {
         'content-type': 'application/json',
-        'x-hasura-admin-secret': '5llFpm8mZWkMvp620CMzMbyfNKSq2VxV5bXjOOABjOO9IhiCaYKrYeFXeiIMq9ea'
+        'x-hasura-admin-secret': 'YlPkfjIaatJlBBPuo8ri3FgFs9UIg3hr1yNSUJNJXMlf4kx4uX3xItSszgq9EwHH'
     }
     req = requests.post('https://scully.hasura.app/v1/graphql', data=json.dumps(data), headers=headers)
     return req.json()
@@ -46,7 +46,7 @@ def username_exists():
         }
         headers = {
             'content-type': 'application/json',
-            'x-hasura-admin-secret': '5llFpm8mZWkMvp620CMzMbyfNKSq2VxV5bXjOOABjOO9IhiCaYKrYeFXeiIMq9ea'
+            'x-hasura-admin-secret': 'YlPkfjIaatJlBBPuo8ri3FgFs9UIg3hr1yNSUJNJXMlf4kx4uX3xItSszgq9EwHH'
         }
         req = requests.post('https://scully.hasura.app/v1/graphql', data=json.dumps(data), headers=headers)
         data = req.json()
@@ -65,7 +65,7 @@ def user_login():
         }
         headers = {
             'content-type': 'application/json',
-            'x-hasura-admin-secret': '5llFpm8mZWkMvp620CMzMbyfNKSq2VxV5bXjOOABjOO9IhiCaYKrYeFXeiIMq9ea'
+            'x-hasura-admin-secret': 'YlPkfjIaatJlBBPuo8ri3FgFs9UIg3hr1yNSUJNJXMlf4kx4uX3xItSszgq9EwHH'
         }
         req = requests.post('https://scully.hasura.app/v1/graphql', data=json.dumps(data), headers=headers)
         data = req.json()
@@ -82,7 +82,7 @@ def get_users():
         }
         headers = {
             'content-type': 'application/json',
-            'x-hasura-admin-secret': '5llFpm8mZWkMvp620CMzMbyfNKSq2VxV5bXjOOABjOO9IhiCaYKrYeFXeiIMq9ea'
+            'x-hasura-admin-secret': 'YlPkfjIaatJlBBPuo8ri3FgFs9UIg3hr1yNSUJNJXMlf4kx4uX3xItSszgq9EwHH'
         }
         req = requests.post('https://scully.hasura.app/v1/graphql', data=json.dumps(data), headers=headers)
         print(req)
@@ -103,7 +103,7 @@ def add_transaction():
         }
         headers = {
             'content-type': 'application/json',
-            'x-hasura-admin-secret': '5llFpm8mZWkMvp620CMzMbyfNKSq2VxV5bXjOOABjOO9IhiCaYKrYeFXeiIMq9ea'
+            'x-hasura-admin-secret': 'YlPkfjIaatJlBBPuo8ri3FgFs9UIg3hr1yNSUJNJXMlf4kx4uX3xItSszgq9EwHH'
         }
         req = requests.post('https://scully.hasura.app/v1/graphql', data=json.dumps(data), headers=headers)
         return req.json()
