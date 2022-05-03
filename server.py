@@ -9,7 +9,7 @@ CORS(app)
 @app.route("/get_transactions/<username>")
 def get_transactions(username):
     data = {
-        'query': 'query getTransactions($username: String){ transactions (where: {_or: [{transactionFrom: {_eq: $username}}, {transactionWith: {_eq: $username}}]}) { money reason transactionDate transactionFrom transactionId transactionStatus transactionType transactionWith } }',
+        'query': 'query getTransactions($username: String){ transactions (where: {_or: [{transactionFrom: {_eq: $username}}, {transactionWith: {_eq: $username}}]} order_by: {transactionDate: desc, transactionId: desc}) { amount reason transactionDate transactionFrom transactionId transactionStatus transactionType transactionWith } }',
         'variables': { "username": username }
     }
     headers = {
@@ -69,3 +69,30 @@ def user_login():
             return {'userExists': True}
         else :
             return {'userExists': False}
+
+@app.route("/get_users")
+def get_users():
+    data = {
+        'query': 'query { users { username } }'
+    }
+    headers = {
+        'content-type': 'application/json',
+        'x-hasura-admin-secret': '5llFpm8mZWkMvp620CMzMbyfNKSq2VxV5bXjOOABjOO9IhiCaYKrYeFXeiIMq9ea'
+    }
+    req = requests.post('https://scully.hasura.app/v1/graphql', data=json.dumps(data), headers=headers)
+    return req.json()
+
+@app.route("/add_transaction", methods=['POST', 'GET'])
+def add_transaction():
+    if request.method == 'POST':
+        request_params = request.get_json()
+        data = {
+            'query': 'mutation addTransaction($transactionType: String, $transactionDate: date, $transactionStatus: String, $transactionFrom: String, $transactionWith: String, $reason: String, $amount: Int) { insert_transactions_one(object: {amount: $amount, reason: $reason, transactionDate: $transactionDate, transactionFrom: $transactionFrom, transactionStatus: $transactionStatus, transactionType: $transactionType, transactionWith: $transactionWith}){ transactionId } }',
+            'variables': { "transactionType": request_params['transactionType'], "transactionDate": request_params['transactionDate'], "transactionStatus": "unpaid", "transactionFrom": request_params['transactionFrom'], "transactionWith": request_params['transactionWith'], "reason": request_params['reason'], "amount": request_params['amount'] }
+        }
+        headers = {
+            'content-type': 'application/json',
+            'x-hasura-admin-secret': '5llFpm8mZWkMvp620CMzMbyfNKSq2VxV5bXjOOABjOO9IhiCaYKrYeFXeiIMq9ea'
+        }
+        req = requests.post('https://scully.hasura.app/v1/graphql', data=json.dumps(data), headers=headers)
+        return req.json()
