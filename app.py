@@ -6,6 +6,10 @@ from flask_cors import CORS, cross_origin
 app = Flask(__name__)
 CORS(app)
 
+@app.route("/")
+def status():
+    return "server is up and running ..."
+
 @app.route("/get_transactions/<username>")
 def get_transactions(username):
     data = {
