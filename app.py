@@ -76,15 +76,22 @@ def user_login():
 
 @app.route("/get_users")
 def get_users():
-    data = {
-        'query': 'query { users { username } }'
-    }
-    headers = {
-        'content-type': 'application/json',
-        'x-hasura-admin-secret': '5llFpm8mZWkMvp620CMzMbyfNKSq2VxV5bXjOOABjOO9IhiCaYKrYeFXeiIMq9ea'
-    }
-    req = requests.post('https://scully.hasura.app/v1/graphql', data=json.dumps(data), headers=headers)
-    return req.json()
+    try:
+        data = {
+            'query': 'query { users { username } }'
+        }
+        headers = {
+            'content-type': 'application/json',
+            'x-hasura-admin-secret': '5llFpm8mZWkMvp620CMzMbyfNKSq2VxV5bXjOOABjOO9IhiCaYKrYeFXeiIMq9ea'
+        }
+        req = requests.post('https://scully.hasura.app/v1/graphql', data=json.dumps(data), headers=headers)
+        print(req)
+        print(req.json())
+        print(req.status_code)
+        return req.json()
+    except Exception as e:
+        print(e)
+        return "error arose"
 
 @app.route("/add_transaction", methods=['POST', 'GET'])
 def add_transaction():
