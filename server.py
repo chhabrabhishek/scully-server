@@ -56,7 +56,7 @@ def user_login():
     if request.method == 'POST':
         request_params = request.get_json()
         data = {
-            'query': 'query userExists ($username: String, $password: String) { users(where: {_and: [{username: {_eq: $username}}, {password: {_eq: $password}}]}) { username } }',
+            'query': 'query userExists ($username: String, $password: String) { users(where: {_and: [{username: {_eq: $username}}, {password: {_eq: $password}}]}) { balance } }',
             'variables': { "username": request_params['username'], "password": request_params['password'] }
         }
         headers = {
@@ -66,7 +66,7 @@ def user_login():
         req = requests.post('https://scully.hasura.app/v1/graphql', data=json.dumps(data), headers=headers)
         data = req.json()
         if len(data['data']['users']):
-            return {'userExists': True}
+            return {'userExists': True, 'balance': data['data']['users'][0]['balance']}
         else :
             return {'userExists': False}
 
